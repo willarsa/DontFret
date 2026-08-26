@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fret Recall — Chord Pool Trainer</title>
+</head>
+<body>
+<div class="app-shell">
+  <header>
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 3v18M11 5v14M14 5v14M17 3v18" opacity=".75"/>
+          <path d="M5 8h14M5 12h14M5 16h14"/>
+          <circle cx="11" cy="12" r="2.1" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <strong>Fret Recall</strong>
+        <span>Chord pools · mastery rounds · song rewards</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="restartBtn" class="ghost-btn" title="Restart this chord pool">↻ <span>Restart pool</span></button>
+      <button id="settingsBtn" class="icon-btn" title="Chord pools and settings" aria-label="Chord pools and settings">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="quiz-wrap">
+      <section class="pool-status" aria-label="Current chord pool progress">
+        <div class="pool-top">
+          <div>
+            <div id="poolKicker" class="pool-kicker">Starter pool</div>
+            <h2 id="poolTitle" class="pool-title">Three-Chord Rock</h2>
+            <p id="poolDescription" class="pool-desc"></p>
+          </div>
+          <div id="roundBadge" class="round-badge">Round 1 of 3</div>
+        </div>
+        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+        <div id="masteryRow" class="mastery-row"></div>
+        <div class="reward-line">
+          <span>Song reward: <strong id="rewardTitle">Wild Thing</strong></span>
+          <span id="rewardState" class="reward-state">Locked · master the pool</span>
+        </div>
+      </section>
+
+      <section id="quizCard" class="quiz-card" aria-live="polite">
+        <div class="prompt-area">
+          <div class="prompt-inner">
+            <div id="eyebrow" class="eyebrow">Play this chord</div>
+
+            <div id="forwardPrompt">
+              <h1 id="chordName">A</h1>
+              <div class="subprompt">Play it from memory, then grade yourself.</div>
+            </div>
+
+            <div id="reversePrompt" class="reverse-wrap">
+              <div id="reverseDiagram" class="reverse-diagram"></div>
+              <div class="subprompt" style="margin-top:0;margin-bottom:14px">Which chord matches this fingering?</div>
+              <div id="choiceGrid" class="choice-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint-strip">
+          <button id="hearBtn" class="secondary-btn" title="Hear chord (Space)"><span aria-hidden="true">♪</span> Hear chord</button>
+          <button id="showBtn" class="secondary-btn" title="Show fingering (F)"><span aria-hidden="true">◉</span> Show fingering</button>
+        </div>
+
+        <div class="answer-strip">
+          <div id="forwardActions" class="forward-actions">
+            <button id="gotItBtn" class="answer-btn good">✓ Got it</button>
+            <button id="missedBtn" class="answer-btn miss">× Missed it</button>
+          </div>
+          <div id="feedbackRow" class="feedback-row">
+            <div id="feedbackCopy" class="feedback-copy"></div>
+            <button id="continueBtn" class="primary-btn">Next chord <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="diagramCard" class="diagram-card" aria-live="polite">
+        <div class="diagram-head">
+          <div>
+            <h2 id="diagramTitle">A fingering</h2>
+            <p>Standard tuning · E A D G B E</p>
+          </div>
+          <div class="mini-badge">Fingering</div>
+        </div>
+        <div id="diagram"></div>
+        <div class="tip-row">
+          <div class="tip">○ open string</div>
+          <div class="tip">× muted string</div>
+          <div class="tip">● fretted note</div>
+          <div class="tip">number = finger</div>
+        </div>
+      </section>
+
+      <section id="songCard" class="song-card" aria-live="polite">
+        <div class="unlock-label">Pool mastered · song unlocked</div>
+        <h2 id="songTitle"></h2>
+        <p id="songMeta" class="song-meta"></p>
+        <p id="songNote" class="song-note"></p>
+        <div class="song-grid">
+          <div class="song-panel">
+            <div class="song-panel-label">Practice progression</div>
+            <div id="songProgression" class="progression"></div>
+          </div>
+          <div class="song-panel">
+            <div class="song-panel-label">Suggested practice pattern</div>
+            <div id="strumPattern" class="strum-pattern"></div>
+            <div id="strumCount" class="strum-count"></div>
+          </div>
+        </div>
+        <div class="song-actions">
+          <button id="playProgressionBtn" class="primary-btn"><span aria-hidden="true">♪</span> Hear progression</button>
+          <button id="practiceAgainBtn" class="secondary-btn">Practice pool again</button>
+          <button id="choosePoolBtn" class="secondary-btn">Choose another pool</button>
+        </div>
+
+        <div class="song-demo" aria-label="Guided song chord demonstration">
+          <div class="song-demo-head">
+            <div>
+              <h3>Guided chord demonstration</h3>
+              <p>Follow the shape, count the pulse, and change when the next chord arrives.</p>
+            </div>
+            <div class="tempo-control">
+              <div class="tempo-top"><span>Practice tempo</span><strong id="demoTempoValue">72 BPM</strong></div>
+              <input id="demoTempo" type="range" min="45" max="130" step="1" value="72" aria-label="Guided demonstration practice tempo" />
+            </div>
+          </div>
+
+          <div class="demo-stage">
+            <div id="demoCurrentDiagram" class="demo-diagram-panel"></div>
+            <div class="demo-info-panel">
+              <div id="demoStepLabel" class="demo-kicker">Chord 1 of 4</div>
+              <div id="demoChordName" class="demo-chord-name">A</div>
+              <div class="demo-next">
+                <div id="demoNextDiagram" class="demo-next-diagram"></div>
+                <div class="demo-next-copy"><span>Coming next</span><strong id="demoNextChord">D</strong></div>
+              </div>
+              <div class="demo-measure">
+                <div class="demo-measure-top"><span id="demoFeel">4/4 practice pulse</span><span id="demoBeatCount">Beat 1 of 4</span></div>
+                <div id="demoBeats" class="demo-beats"></div>
+              </div>
+              <div class="demo-controls">
+                <button id="demoPlayBtn" class="primary-btn">▶ Start demo</button>
+                <button id="demoPrevBtn" class="secondary-btn" aria-label="Previous chord">← Previous</button>
+                <button id="demoNextBtn" class="secondary-btn">Next →</button>
+                <button id="demoHearBtn" class="secondary-btn"><span aria-hidden="true">♪</span> Hear chord</button>
+              </div>
+              <div id="demoStatus" class="demo-status" aria-live="polite">Ready · the demo stops after one full progression.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>Normal quiz: play the named chord and grade yourself · Reverse quiz: identify the fingering · Audio uses real Stratocaster string samples; synthetic fallback only if unavailable</footer>
+</div>
+
+<div id="drawerBackdrop" class="drawer-backdrop" aria-hidden="true">
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="drawer-head">
+      <h2 id="settingsTitle">Chord pools</h2>
+      <button id="closeSettings" class="icon-btn" aria-label="Close settings">×</button>
+    </div>
+    <p class="drawer-copy">Each pool has three mastery rounds. A chord advances only when you get it right. Wrong answers stay in the current round and come back again later.</p>
+
+    <div class="section-label">Choose a pool</div>
+    <div id="poolList" class="pool-list"></div>
+
+    <div class="section-label">Reverse quiz chance</div>
+    <div class="range-row">
+      <input id="reverseChance" type="range" min="0" max="100" step="10" value="30" aria-label="Reverse quiz chance" />
+      <div id="reverseChanceValue" class="range-value">30%</div>
+    </div>
+    <p class="settings-note">At 30%, about three out of every ten questions show a fingering first and ask you to identify the chord. Set it to 0% for normal play-only practice or 100% for all reverse questions.</p>
+
+    <div class="section-label">Electric guitar sample library</div>
+    <div class="sample-library">
+      <div class="sample-library-top">
+        <div>
+          <div id="sampleStatusTitle" class="sample-library-title">Real Stratocaster samples ready to load</div>
+          <div id="sampleStatusNote" class="sample-message">The first chord you hear loads its real recorded strings automatically. The rest of the 22-note library then fills in for faster playback.</div>
+        </div>
+        <div id="sampleCount" class="sample-count">0 / 22</div>
+      </div>
+      <div class="sample-progress" aria-hidden="true"><span id="sampleProgressFill"></span></div>
+      <div class="sample-actions">
+        <button id="loadBuiltInSamplesBtn" class="secondary-btn sample-clear" type="button">Load all real guitar samples</button>
+        <label class="sample-file-btn">Use my WAV files<input id="sampleFilesInput" type="file" accept="audio/wav,audio/x-wav,.wav,audio/*" multiple></label>
+        <label class="sample-file-btn">Use my sample folder<input id="sampleFolderInput" type="file" accept="audio/wav,audio/x-wav,.wav,audio/*" multiple webkitdirectory directory></label>
+        <button id="clearSamplesBtn" class="secondary-btn sample-clear" type="button">Clear memory</button>
+      </div>
+      <details class="sample-details">
+        <summary>Sample source & required positions</summary>
+        <p class="sample-naming"><strong>Built-in source:</strong> Wavebase Stratocaster — real electric-guitar notes recorded without effects and released to the public domain. The low string in the source session was Drop-D, so its E/F/G recordings come from slightly higher physical frets, but the pitches and string register are correct.</p>
+        <p class="sample-naming"><strong>Your own files still work:</strong> <code>S1_F0_V1.wav</code>. S1 = low E and S6 = high E; F is the fret; V is an optional alternate take.</p>
+        <div id="sampleChecklist" class="sample-checklist"></div>
+      </details>
+    </div>
+    <p class="settings-note">Internet is needed to fetch the built-in WAVs after a page reload. Once loaded, they stay cached in memory for the session. If the remote library cannot load, the app falls back to the physical string model or any WAVs you supply.</p>
+
+    <div class="section-label">Progress</div>
+    <button id="resetAllBtn" class="danger-btn" style="width:100%">Reset all pool progress</button>
+    <p class="settings-note">Progress and your reverse-quiz setting are saved in this browser.</p>
+
+    <div class="section-label">Keyboard shortcuts</div>
+    <div class="shortcut-table">
+      <div class="shortcut"><span>Hear chord</span><kbd>Space</kbd></div>
+      <div class="shortcut"><span>Show / hide fingering</span><kbd>F</kbd></div>
+      <div class="shortcut"><span>Got it</span><kbd>1</kbd></div>
+      <div class="shortcut"><span>Missed it</span><kbd>2</kbd></div>
+      <div class="shortcut"><span>Continue after answer</span><kbd>Enter</kbd></div>
+    </div>
+  </aside>
+</div>
