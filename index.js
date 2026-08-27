@@ -29,6 +29,11 @@
       song:{ title:"Wild Thing", artist:"The Troggs", version:"simplified practice loop", progression:["A","D","E","D"], demo:{bpm:72, feel:"4/4 practice pulse", steps:["↓","↓↑","↓","↓↑"]}, pattern:"↓  ↓↑  ↓  ↓↑", count:"Count: 1 & 2 & 3 & 4 &", note:"Use this as a chord-change exercise inspired by the song rather than an exact transcription. Keep the fretting hand relaxed and aim for clean changes before adding speed." }
     },
     {
+      id:"riptide", level:"Song pool", name:"Riptide", chords:["Am","G","C"],
+      description:"Master the three open-chord shapes used throughout a capo-1 practice arrangement of Vance Joy’s Riptide.",
+      song:{ title:"Riptide", artist:"Vance Joy", version:"capo 1 · standard tuning · simplified practice loop", progression:["Am","G","C","C"], demo:{bpm:102, feel:"4/4 indie-folk practice pulse", steps:["↓","↓↑","↑","↓↑"]}, pattern:"↓  ↓↑  ↑  ↓↑", count:"Count: 1 & 2 & 3 & 4 &", note:"Put a capo on fret 1. Practice the repeating Am → G → C progression, holding C for the extra measure before returning to Am. Focus on smooth changes and steady rhythm before increasing speed." }
+    },
+    {
       id:"g-family", level:"Starter pool", name:"G-Family Changes", chords:["G","C","D","Em"],
       description:"Four open chords that unlock a huge amount of beginner rhythm guitar.",
       song:{ title:"Stand by Me", artist:"Ben E. King", version:"practice key of G", progression:["G","Em","C","D"], demo:{bpm:70, feel:"4/4 practice pulse", steps:["↓","↓↑","↑","↓↑"]}, pattern:"↓  ↓↑  ↑↓↑", count:"Count: 1 & 2 & 3 & 4 &", note:"This is a transposed practice version of the familiar I–vi–IV–V loop. Start slowly and keep your strumming hand moving through the chord changes." }
