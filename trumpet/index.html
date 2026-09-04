@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="./index.js"></script>
+<title>Brass Tacks — Trumpet Trainer</title>
+</head>
+<body>
+<div class="app-shell">
+  <header>
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="6" cy="12" r="2.5" fill="currentColor" stroke="none" opacity=".5"/>
+          <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/>
+          <circle cx="18" cy="12" r="2.5" fill="currentColor" stroke="none" opacity=".5"/>
+          <path d="M2 16h20M2 8h20" opacity=".3"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <strong>Brass Tacks</strong>
+        <span>Note pools · mastery rounds · song rewards</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="restartBtn" class="ghost-btn" title="Restart this note pool">↻ <span>Restart pool</span></button>
+      <button id="settingsBtn" class="icon-btn" title="Note pools and settings" aria-label="Note pools and settings">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="quiz-wrap">
+      <section class="pool-status" aria-label="Current note pool progress">
+        <div class="pool-top">
+          <div>
+            <div id="poolKicker" class="pool-kicker">Starter pool</div>
+            <h2 id="poolTitle" class="pool-title">First Five Notes</h2>
+            <p id="poolDescription" class="pool-desc"></p>
+          </div>
+          <div id="roundBadge" class="round-badge">Round 1 of 3</div>
+        </div>
+        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+        <div id="masteryRow" class="mastery-row"></div>
+        <div class="reward-line">
+          <span>Song reward: <strong id="rewardTitle">When the Saints</strong></span>
+          <span id="rewardState" class="reward-state">Locked · master the pool</span>
+        </div>
+      </section>
+
+      <section id="quizCard" class="quiz-card" aria-live="polite">
+        <div class="prompt-area">
+          <div class="prompt-inner">
+            <div id="eyebrow" class="eyebrow">Play this note</div>
+
+            <div id="forwardPrompt">
+              <h1 id="noteName">C4</h1>
+              <div class="subprompt">Play it from memory, then grade yourself.</div>
+            </div>
+
+            <div id="reversePrompt" class="reverse-wrap">
+              <div id="reverseDiagram" class="reverse-diagram"></div>
+              <div class="subprompt" style="margin-top:0;margin-bottom:14px">Which note matches these valves and staff position?</div>
+              <div id="choiceGrid" class="choice-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint-strip">
+          <button id="hearBtn" class="secondary-btn" title="Hear note (Space)"><span aria-hidden="true">♪</span> Hear note</button>
+          <button id="showBtn" class="secondary-btn" title="Show fingerings (F)"><span aria-hidden="true">◉</span> Show valves</button>
+        </div>
+
+        <div class="answer-strip">
+          <div id="forwardActions" class="forward-actions">
+            <button id="gotItBtn" class="answer-btn good">✓ Got it</button>
+            <button id="missedBtn" class="answer-btn miss">× Missed it</button>
+          </div>
+          <div id="feedbackRow" class="feedback-row">
+            <div id="feedbackCopy" class="feedback-copy"></div>
+            <button id="continueBtn" class="primary-btn">Next note <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="diagramCard" class="diagram-card" aria-live="polite">
+        <div class="diagram-head">
+          <div>
+            <h2 id="diagramTitle">C4 fingering</h2>
+            <p>Bb Trumpet · Treble Clef</p>
+          </div>
+          <div class="mini-badge">Valves</div>
+        </div>
+        <div id="diagram"></div>
+        <div class="tip-row">
+          <div class="tip">○ open valve</div>
+          <div class="tip">● pressed valve</div>
+          <div class="tip">1 = index, 2 = middle, 3 = ring</div>
+        </div>
+      </section>
+
+      <section id="songCard" class="song-card" aria-live="polite">
+        <div class="unlock-label">Pool mastered · song unlocked</div>
+        <h2 id="songTitle"></h2>
+        <p id="songMeta" class="song-meta"></p>
+        <p id="songNote" class="song-note"></p>
+        <div class="song-grid">
+          <div class="song-panel">
+            <div class="song-panel-label">Practice melody</div>
+            <div id="songMelody" class="progression"></div>
+          </div>
+          <div class="song-panel">
+            <div class="song-panel-label">Suggested practice pattern</div>
+            <div id="rhythmPattern" class="strum-pattern"></div>
+            <div id="rhythmCount" class="strum-count"></div>
+          </div>
+        </div>
+        <div class="song-actions">
+          <button id="playMelodyBtn" class="primary-btn"><span aria-hidden="true">♪</span> Hear melody</button>
+          <button id="practiceAgainBtn" class="secondary-btn">Practice pool again</button>
+          <button id="choosePoolBtn" class="secondary-btn">Choose another pool</button>
+        </div>
+
+        <div class="song-demo" aria-label="Guided song note demonstration">
+          <div class="song-demo-head">
+            <div>
+              <h3>Guided note demonstration</h3>
+              <p>Follow the valves, count the pulse, and change when the next note arrives.</p>
+            </div>
+            <div class="tempo-control">
+              <div class="tempo-top"><span>Practice tempo</span><strong id="demoTempoValue">72 BPM</strong></div>
+              <input id="demoTempo" type="range" min="45" max="130" step="1" value="72" aria-label="Guided demonstration practice tempo" />
+            </div>
+          </div>
+
+          <div class="demo-stage">
+            <div id="demoCurrentDiagram" class="demo-diagram-panel"></div>
+            <div class="demo-info-panel">
+              <div id="demoStepLabel" class="demo-kicker">Note 1 of 4</div>
+              <div id="demoNoteName" class="demo-chord-name">C4</div>
+              <div class="demo-next">
+                <div id="demoNextDiagram" class="demo-next-diagram"></div>
+                <div class="demo-next-copy"><span>Coming next</span><strong id="demoNextNote">D4</strong></div>
+              </div>
+              <div class="demo-measure">
+                <div class="demo-measure-top"><span id="demoFeel">4/4 practice pulse</span><span id="demoBeatCount">Beat 1 of 4</span></div>
+                <div id="demoBeats" class="demo-beats"></div>
+              </div>
+              <div class="demo-controls">
+                <button id="demoPlayBtn" class="primary-btn">▶ Start demo</button>
+                <button id="demoPrevBtn" class="secondary-btn" aria-label="Previous note">← Previous</button>
+                <button id="demoNextBtn" class="secondary-btn">Next →</button>
+                <button id="demoHearBtn" class="secondary-btn"><span aria-hidden="true">♪</span> Hear note</button>
+              </div>
+              <div id="demoStatus" class="demo-status" aria-live="polite">Ready · the demo stops after one full melody.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>Normal quiz: play the named note and grade yourself · Reverse quiz: identify the valves/staff · Audio uses synthetic brass fallback until custom samples are loaded</footer>
+</div>
+
+<div id="drawerBackdrop" class="drawer-backdrop" aria-hidden="true">
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="drawer-head">
+      <h2 id="settingsTitle">Note pools</h2>
+      <button id="closeSettings" class="icon-btn" aria-label="Close settings">×</button>
+    </div>
+    <p class="drawer-copy">Each pool has three mastery rounds. A note advances only when you get it right. Wrong answers stay in the current round and come back again later.</p>
+
+    <div class="section-label">Choose a pool</div>
+    <div id="poolList" class="pool-list"></div>
+
+    <div class="section-label">Reverse quiz chance</div>
+    <div class="range-row">
+      <input id="reverseChance" type="range" min="0" max="100" step="10" value="30" aria-label="Reverse quiz chance" />
+      <div id="reverseChanceValue" class="range-value">30%</div>
+    </div>
+    <p class="settings-note">At 30%, about three out of every ten questions show a staff/valve diagram first and ask you to identify the note. Set it to 0% for normal play-only practice or 100% for all reverse questions.</p>
+
+    <div class="section-label">Trumpet sample library</div>
+    <div class="sample-library">
+      <div class="sample-library-top">
+        <div>
+          <div id="sampleStatusTitle" class="sample-library-title">Using synthetic brass fallback</div>
+          <div id="sampleStatusNote" class="sample-message">Provide your own WAV recordings of trumpet notes to replace the synthesizer.</div>
+        </div>
+        <div id="sampleCount" class="sample-count">0 / 12</div>
+      </div>
+      <div class="sample-progress" aria-hidden="true"><span id="sampleProgressFill"></span></div>
+      <div class="sample-actions">
+        <label class="sample-file-btn">Use my WAV files<input id="sampleFilesInput" type="file" accept="audio/wav,audio/x-wav,.wav,audio/*" multiple></label>
+        <button id="clearSamplesBtn" class="secondary-btn sample-clear" type="button">Clear memory</button>
+      </div>
+      <details class="sample-details">
+        <summary>Sample naming & requirements</summary>
+        <p class="sample-naming"><strong>File naming:</strong> Name your files exactly like the notes: <code>C4.wav</code>, <code>F#4.wav</code>, <code>Bb4.wav</code>.</p>
+        <div id="sampleChecklist" class="sample-checklist"></div>
+      </details>
+    </div>
+
+    <div class="section-label">Progress</div>
+    <button id="resetAllBtn" class="danger-btn" style="width:100%">Reset all pool progress</button>
+    <p class="settings-note">Progress and your reverse-quiz setting are saved in this browser.</p>
+
+    <div class="section-label">Keyboard shortcuts</div>
+    <div class="shortcut-table">
+      <div class="shortcut"><span>Hear note</span><kbd>Space</kbd></div>
+      <div class="shortcut"><span>Show / hide valves</span><kbd>F</kbd></div>
+      <div class="shortcut"><span>Got it</span><kbd>1</kbd></div>
+      <div class="shortcut"><span>Missed it</span><kbd>2</kbd></div>
+      <div class="shortcut"><span>Continue after answer</span><kbd>Enter</kbd></div>
+    </div>
+  </aside>
+</div>
+</body>
+</html>
