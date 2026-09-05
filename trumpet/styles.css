@@ -320,3 +320,50 @@ kbd { min-width:30px; text-align:center; padding:4px 7px; border-radius:7px; col
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
 }
+
+.demo-timeline-wrap {
+  margin: 18px 0;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.demo-timeline {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.timeline-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 6px;
+  background: #1f252a;
+  border: 1px solid #354049;
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.timeline-note.played {
+  background: rgba(121, 201, 154, 0.15);
+  border-color: rgba(121, 201, 154, 0.3);
+  color: #8cc39f;
+}
+
+.timeline-note.active {
+  background: rgba(230, 184, 92, 0.2);
+  border-color: var(--accent);
+  color: var(--accent-2);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(230, 184, 92, 0.15);
+  z-index: 2;
+}
+
+.demo-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }

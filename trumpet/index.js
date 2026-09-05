@@ -3,9 +3,6 @@
   const STORAGE_KEY = "trumpetRecall.poolProgress.v1";
   const SETTINGS_KEY = "trumpetRecall.settings.v1";
 
-  // Note data mapping for standard Bb Trumpet
-  // staffLine: 0 = bottom line (E4), 1 = 2nd line (G4), -1 = middle C ledger line
-  // valves: array of 3 booleans/ints representing valves 1, 2, and 3 (1 = pressed, 0 = open)
   const noteData = {
     "F#3": { valves: [1, 1, 1], staffLine: -2.5, midi: 54 },
     "G3":  { valves: [1, 0, 1], staffLine: -2.0, midi: 55 },
@@ -34,33 +31,66 @@
     {
       id: "first-five", level: "Starter pool", name: "First Five Notes", notes: ["C4", "D4", "E4", "F4", "G4"],
       description: "The foundational notes for every beginning trumpet player.",
-      song: { title: "When the Saints", artist: "Traditional", version: "simplified practice loop", melody: ["C4", "E4", "F4", "G4", "C4", "E4", "F4", "G4"], demo: { bpm: 80, feel: "4/4 steady breath", steps: ["♩", "♩", "♩", "♩"] }, pattern: "1 2 3 4", count: "Count: 1 2 3 4", note: "Keep a steady airstream. Memorize the valve combinations before adding speed." }
+      song: { 
+        title: "When the Saints", artist: "Traditional", version: "simplified practice loop", 
+        melody: [
+          {n:"C4", d:1}, {n:"E4", d:1}, {n:"F4", d:1}, {n:"G4", d:2}, 
+          {n:"C4", d:1}, {n:"E4", d:1}, {n:"F4", d:1}, {n:"G4", d:2}
+        ], 
+        demo: { bpm: 100 }
+      }
     },
     {
       id: "c-major", level: "Starter pool", name: "C Major Scale (Lower)", notes: ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"],
       description: "The complete one-octave C major scale.",
-      song: { title: "Ode to Joy", artist: "Beethoven", version: "simplified melody", melody: ["E4", "E4", "F4", "G4", "G4", "F4", "E4", "D4", "C4", "C4", "D4", "E4"], demo: { bpm: 90, feel: "4/4 march", steps: ["♩", "♩", "♩", "♩"] }, pattern: "1 2 3 4", count: "Count: 1 2 3 4", note: "A classic melody strictly using the C major scale." }
+      song: { 
+        title: "Ode to Joy", artist: "Beethoven", version: "simplified melody", 
+        melody: [
+          {n:"E4", d:1}, {n:"E4", d:1}, {n:"F4", d:1}, {n:"G4", d:1}, 
+          {n:"G4", d:1}, {n:"F4", d:1}, {n:"E4", d:1}, {n:"D4", d:1}, 
+          {n:"C4", d:1}, {n:"C4", d:1}, {n:"D4", d:1}, {n:"E4", d:2}
+        ], 
+        demo: { bpm: 90 }, note: "A classic melody strictly using the C major scale." 
+      }
     },
     {
       id: "low-register", level: "Technique pool", name: "The Low Register", notes: ["F#3", "G3", "A3", "Bb3", "B3"],
       description: "Loosen the embouchure to hit the warm lower limits of the horn.",
-      song: { title: "Low Brass Jam", artist: "Brass Tacks", version: "practice loop", melody: ["G3", "A3", "Bb3", "G3", "F#3", "G3"], demo: { bpm: 70, feel: "4/4 slow groove", steps: ["♩", "♩", "♩", "♩"] }, pattern: "1 2 3 4", count: "Count: 1 2 3 4", note: "Focus on tone quality and avoid pressing the mouthpiece too hard." }
+      song: { 
+        title: "Low Brass Jam", artist: "Brass Tacks", version: "practice loop", 
+        melody: [
+          {n:"G3", d:1}, {n:"A3", d:1}, {n:"Bb3", d:1}, 
+          {n:"G3", d:1}, {n:"F#3", d:1}, {n:"G3", d:2}
+        ], 
+        demo: { bpm: 70 }, note: "Focus on tone quality and avoid pressing the mouthpiece too hard." 
+      }
     },
     {
       id: "fly-me-moon", 
       level: "Intermediate pool", 
       name: "Descending Jazz Phrase", 
-      notes: ["E4", "F4", "G4", "A4", "B4", "C5"],
+      notes: ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"],
       description: "Practice your descending scale control using one of the most famous jazz standards.",
       song: { 
         title: "Fly Me to the Moon", 
         artist: "Frank Sinatra", 
-        version: "opening melody", 
-        melody: ["C5", "B4", "A4", "G4", "F4", "A4", "C5", "B4", "A4", "G4", "F4", "E4"], 
-        demo: { bpm: 118, feel: "4/4 medium swing", steps: ["♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩"] }, 
-        pattern: "1 2 3 4", 
-        count: "Swing count: 1 2 3 4", 
-        note: "Keep the airstream steady as you walk down from C5. Give the notes a slight swing feel rather than playing them rigidly straight." 
+        version: "extended melody", 
+        melody: [
+          // Fly me to the moon
+          {n:"C5", d:1.5}, {n:"B4", d:0.5}, {n:"A4", d:1}, {n:"G4", d:1}, 
+          {n:"F4", d:2}, 
+          // Let me play among the stars
+          {n:"A4", d:1}, {n:"C5", d:1}, {n:"B4", d:1.5}, {n:"A4", d:0.5}, 
+          {n:"G4", d:1}, {n:"F4", d:1}, {n:"E4", d:4}, 
+          // Let me see what spring is like
+          {n:"A4", d:1.5}, {n:"G4", d:0.5}, {n:"F4", d:1}, {n:"E4", d:1}, 
+          {n:"D4", d:2},
+          // On Jupiter and Mars
+          {n:"F4", d:1}, {n:"A4", d:1}, {n:"C5", d:1.5}, {n:"B4", d:0.5}, 
+          {n:"A4", d:1}, {n:"G4", d:1}, {n:"C4", d:4}
+        ], 
+        demo: { bpm: 118 }, 
+        note: "Keep the airstream steady as you walk down from C5. Give the 0.5-beat notes a slight swing feel to match the classic recording." 
       }
     }
   ];
@@ -83,10 +113,9 @@
     noteName: $("#noteName"), reverseDiagram: $("#reverseDiagram"), choiceGrid: $("#choiceGrid"), hearBtn: $("#hearBtn"), showBtn: $("#showBtn"),
     forwardActions: $("#forwardActions"), feedbackRow: $("#feedbackRow"), feedbackCopy: $("#feedbackCopy"), continueBtn: $("#continueBtn"),
     diagramCard: $("#diagramCard"), diagramTitle: $("#diagramTitle"), diagram: $("#diagram"), songCard: $("#songCard"), songTitle: $("#songTitle"),
-    songMeta: $("#songMeta"), songNote: $("#songNote"), songMelody: $("#songMelody"), rhythmPattern: $("#rhythmPattern"), rhythmCount: $("#rhythmCount"),
-    demoTempo: $("#demoTempo"), demoTempoValue: $("#demoTempoValue"), demoCurrentDiagram: $("#demoCurrentDiagram"), demoNextDiagram: $("#demoNextDiagram"),
-    demoStepLabel: $("#demoStepLabel"), demoNoteName: $("#demoNoteName"), demoNextNote: $("#demoNextNote"), demoFeel: $("#demoFeel"), demoBeatCount: $("#demoBeatCount"),
-    demoBeats: $("#demoBeats"), demoPlayBtn: $("#demoPlayBtn"), demoPrevBtn: $("#demoPrevBtn"), demoNextBtn: $("#demoNextBtn"), demoHearBtn: $("#demoHearBtn"), demoStatus: $("#demoStatus"),
+    songMeta: $("#songMeta"), songNote: $("#songNote"), demoTempo: $("#demoTempo"), demoTempoValue: $("#demoTempoValue"), 
+    demoCurrentDiagram: $("#demoCurrentDiagram"), demoTimeline: $("#demoTimeline"), demoStepLabel: $("#demoStepLabel"), 
+    demoPlayBtn: $("#demoPlayBtn"), demoHearBtn: $("#demoHearBtn"), demoStatus: $("#demoStatus"),
     poolList: $("#poolList"), drawerBackdrop: $("#drawerBackdrop"), reverseChance: $("#reverseChance"), reverseChanceValue: $("#reverseChanceValue"),
     sampleStatusTitle: $("#sampleStatusTitle"), sampleStatusNote: $("#sampleStatusNote"), sampleCount: $("#sampleCount"), sampleProgressFill: $("#sampleProgressFill"),
     sampleFilesInput: $("#sampleFilesInput"), sampleChecklist: $("#sampleChecklist"), clearSamplesBtn: $("#clearSamplesBtn")
@@ -106,7 +135,6 @@
   let audioMaster = null;
   const sampleBank = new Map();
   let demoIndex = 0;
-  let demoBeat = 0;
   let demoPlaying = false;
   let demoTimer = null;
   let demoBpm = 72;
@@ -308,29 +336,6 @@
     elements.showBtn.innerHTML = '<span aria-hidden="true">◉</span> Show valves';
   }
 
-  function showSongReward() {
-    const pool = currentPool();
-    const song = pool.song;
-    stopSongDemo(false);
-    elements.quizCard.style.display = "none";
-    elements.diagramCard.classList.remove("show");
-    elements.songCard.classList.add("show");
-    elements.songTitle.textContent = song.title;
-    elements.songMeta.textContent = `${song.artist} · ${song.version}`;
-    elements.songNote.textContent = song.note;
-    elements.songMelody.innerHTML = song.melody.map((note, i) => `${i ? '<span class="arrow">→</span>' : ''}<span class="progression-chord" data-demo-index="${i}">${note}</span>`).join("");
-    elements.rhythmPattern.textContent = song.pattern;
-    elements.rhythmCount.textContent = song.count;
-
-    demoIndex = 0;
-    demoBeat = 0;
-    demoBpm = clamp(Number(song.demo?.bpm || 72), 45, 130);
-    elements.demoTempo.value = demoBpm;
-    elements.demoTempoValue.textContent = `${demoBpm} BPM`;
-    elements.demoStatus.textContent = "Ready · the demo stops after one full melody.";
-    renderSongDemo();
-  }
-
   function resetCurrentPool() {
     const pool = currentPool();
     progress[pool.id] = { mastery: {} };
@@ -377,7 +382,6 @@
     elements.drawerBackdrop.setAttribute("aria-hidden", "true");
   }
 
-  // Draw Valves + Staff
   function buildValveSVG(name, data, compact = false) {
     const W = 360, H = compact ? 220 : 260;
     let svg = `<svg viewBox="0 0 ${W} ${H}" width="min(100%, ${compact ? 315 : 390}px)" role="img" aria-label="${name} trumpet note diagram" xmlns="http://www.w3.org/2000/svg">`;
@@ -390,18 +394,15 @@
       .valve-num { fill: #87949b; font: 600 12px system-ui; text-anchor: middle; }
     </style>`;
 
-    // Draw Staff
     const staffYStart = 50;
     const spacing = 12;
     for (let i = 0; i < 5; i++) {
       svg += `<line class="staff-line" x1="60" y1="${staffYStart + i * spacing}" x2="300" y2="${staffYStart + i * spacing}" />`;
     }
 
-    // Draw Note
-    const bottomLineY = staffYStart + 4 * spacing; // E4 is bottom line
+    const bottomLineY = staffYStart + 4 * spacing;
     const noteY = bottomLineY - (data.staffLine * spacing);
     
-    // Ledger lines
     if (data.staffLine <= -1) {
       for (let l = -1; l >= data.staffLine; l--) {
         const ly = bottomLineY - (l * spacing);
@@ -415,14 +416,12 @@
       }
     }
 
-    // Accidental
     if (data.accidental) {
       svg += `<text x="156" y="${noteY + 4}" fill="#f5f0e7" font-size="18" font-family="serif" text-anchor="end">${data.accidental}</text>`;
     }
 
     svg += `<ellipse class="note-head" cx="180" cy="${noteY}" rx="8" ry="6" transform="rotate(-15 180 ${noteY})" />`;
 
-    // Draw Valves
     const valveY = compact ? 180 : 210;
     const vSpace = 45;
     const vStart = 180 - vSpace;
@@ -469,7 +468,6 @@
       const nameMatch = file.name.match(/^([A-Ga-g][#b]?\d)\.(wav|mp3|ogg)$/i);
       if (!nameMatch) continue;
       const noteNameClean = nameMatch[1].toUpperCase();
-      // standardize # and b casing
       const finalName = Object.keys(noteData).find(k => k.toUpperCase() === noteNameClean) || noteNameClean;
       
       try {
@@ -541,88 +539,87 @@
     playNoteAudio(name, ctx.currentTime + 0.02, 1.2);
   }
 
-  async function playMelody() {
+  function showSongReward() {
     const pool = currentPool();
-    const ctx = getAudioContext();
-    let t0 = ctx.currentTime + 0.1;
-    pool.song.melody.forEach((name, index) => {
-      playNoteAudio(name, t0, 0.8);
-      t0 += 1.0;
-    });
+    const song = pool.song;
+    stopSongDemo(false);
+    elements.quizCard.style.display = "none";
+    elements.diagramCard.classList.remove("show");
+    elements.songCard.classList.add("show");
+    elements.songTitle.textContent = song.title;
+    elements.songMeta.textContent = `${song.artist} · ${song.version}`;
+    elements.songNote.textContent = song.note || "";
+
+    demoIndex = 0;
+    demoBpm = clamp(Number(song.demo?.bpm || 72), 45, 180);
+    elements.demoTempo.value = demoBpm;
+    elements.demoTempoValue.textContent = `${demoBpm} BPM`;
+    elements.demoStatus.textContent = "Ready.";
+    renderSongDemo();
   }
 
   function renderSongDemo() {
     const song = currentPool().song;
-    const cfg = { bpm: clamp(Number(song.demo?.bpm || 72), 45, 130), feel: song.demo?.feel || "4/4", steps: song.demo?.steps || ["♩", "♩", "♩", "♩"] };
-    if (!song.melody.length) return;
+    if (!song.melody || !song.melody.length) return;
     
     demoIndex = clamp(demoIndex, 0, song.melody.length - 1);
-    demoBeat = clamp(demoBeat, 0, cfg.steps.length - 1);
-    const note = song.melody[demoIndex];
-    const nextIndex = (demoIndex + 1) % song.melody.length;
-    const nextNote = song.melody[nextIndex];
+    const currentNoteObj = song.melody[demoIndex];
 
-    elements.demoCurrentDiagram.innerHTML = buildValveSVG(note, noteData[note], true);
-    elements.demoNextDiagram.innerHTML = buildValveSVG(nextNote, noteData[nextNote], true);
+    elements.demoTimeline.innerHTML = song.melody.map((noteObj, i) => {
+      const activeClass = i === demoIndex ? "active" : (i < demoIndex ? "played" : "");
+      const widthFactor = noteObj.d * 40; 
+      return `<div class="timeline-note ${activeClass}" style="min-width:${widthFactor}px;" data-note="${noteObj.n}">${noteObj.n}</div>`;
+    }).join("");
+
+    const activeEl = elements.demoTimeline.children[demoIndex];
+    if (activeEl) activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+    elements.demoCurrentDiagram.innerHTML = buildValveSVG(currentNoteObj.n, noteData[currentNoteObj.n], true);
     elements.demoStepLabel.textContent = `Note ${demoIndex + 1} of ${song.melody.length}`;
-    elements.demoNoteName.textContent = note;
-    elements.demoNextNote.textContent = nextNote;
-    elements.demoFeel.textContent = cfg.feel;
-    elements.demoBeatCount.textContent = `Beat ${demoBeat + 1} of ${cfg.steps.length}`;
-    elements.demoBeats.style.setProperty("--demo-steps", cfg.steps.length);
-    elements.demoBeats.innerHTML = cfg.steps.map((step, i) => `<div class="demo-beat ${i === demoBeat ? "active" : ""}">${step}</div>`).join("");
-    
-    [...elements.songMelody.querySelectorAll(".progression-chord")].forEach((el, i) => {
-      el.classList.toggle("demo-active", i === demoIndex);
-      el.classList.toggle("demo-done", demoPlaying && i < demoIndex);
-    });
-    
-    elements.demoPlayBtn.textContent = demoPlaying ? "Ⅱ Pause demo" : (demoIndex === 0 && demoBeat === 0 ? "▶ Start demo" : "▶ Resume demo");
+    elements.demoPlayBtn.textContent = demoPlaying ? "Ⅱ Pause" : (demoIndex === 0 ? "▶ Start playback" : "▶ Resume");
   }
 
   function demoTick() {
     if (!demoPlaying) return;
     const song = currentPool().song;
-    const cfg = { steps: song.demo?.steps || ["♩", "♩", "♩", "♩"] };
-    const note = song.melody[demoIndex];
+    const noteObj = song.melody[demoIndex];
     
     renderSongDemo();
     
     const ctx = getAudioContext();
     const beatMs = 60000 / demoBpm;
+    const durationMs = noteObj.d * beatMs;
     
-    if (demoBeat === 0) { // play note on first beat of its slot
-        playNoteAudio(note, ctx.currentTime + 0.02, (beatMs / 1000) * 0.9);
-    }
+    playNoteAudio(noteObj.n, ctx.currentTime + 0.02, (durationMs / 1000) * 0.90);
 
     clearTimeout(demoTimer);
+    
     demoTimer = setTimeout(() => {
       if (!demoPlaying) return;
-      demoBeat += 1;
-      if (demoBeat >= cfg.steps.length) {
-        demoBeat = 0;
-        demoIndex += 1;
-        if (demoIndex >= song.melody.length) {
-          demoIndex = 0;
-          demoBeat = 0;
-          stopSongDemo(false);
-          elements.demoStatus.textContent = "Demonstration complete · run it again or step through the notes manually.";
-          renderSongDemo();
-          return;
-        }
+      demoIndex++;
+      
+      if (demoIndex >= song.melody.length) {
+        demoIndex = 0;
+        stopSongDemo(false);
+        elements.demoStatus.textContent = "Playback complete.";
+        renderSongDemo();
+        return;
       }
       demoTick();
-    }, beatMs);
+    }, durationMs);
   }
 
   async function startSongDemo() {
     if (demoPlaying) {
       stopSongDemo(true);
-      elements.demoStatus.textContent = "Paused · resume when you are ready.";
+      elements.demoStatus.textContent = "Paused.";
       return;
     }
     demoPlaying = true;
-    elements.demoStatus.textContent = "Playing · change to the next note when the count rolls over.";
+    elements.demoStatus.textContent = "Playing...";
+    
+    if (demoIndex >= currentPool().song.melody.length) demoIndex = 0;
+    
     demoTick();
   }
 
@@ -630,21 +627,8 @@
     demoPlaying = false;
     if (demoTimer) clearTimeout(demoTimer);
     demoTimer = null;
-    if (!keepPosition) {
-      demoIndex = 0;
-      demoBeat = 0;
-    }
+    if (!keepPosition) demoIndex = 0;
     if (elements.demoPlayBtn) renderSongDemo();
-  }
-
-  function moveDemoNote(delta) {
-    const song = currentPool().song;
-    if (!song.melody.length) return;
-    stopSongDemo(true);
-    demoIndex = (demoIndex + delta + song.melody.length) % song.melody.length;
-    demoBeat = 0;
-    elements.demoStatus.textContent = "Manual step · use Hear note, or start the guided demo from here.";
-    renderSongDemo();
   }
 
   $("#gotItBtn").addEventListener("click", () => gradeForward(true));
@@ -680,13 +664,10 @@
   $("#restartBtn").addEventListener("click", resetCurrentPool);
   $("#practiceAgainBtn").addEventListener("click", resetCurrentPool);
   $("#choosePoolBtn").addEventListener("click", openSettings);
-  $("#playMelodyBtn").addEventListener("click", playMelody);
   elements.demoPlayBtn.addEventListener("click", startSongDemo);
-  elements.demoPrevBtn.addEventListener("click", () => moveDemoNote(-1));
-  elements.demoNextBtn.addEventListener("click", () => moveDemoNote(1));
-  elements.demoHearBtn.addEventListener("click", () => playNote(currentPool().song.melody[demoIndex]));
+  elements.demoHearBtn.addEventListener("click", () => playNote(currentPool().song.melody[demoIndex].n));
   elements.demoTempo.addEventListener("input", () => {
-    demoBpm = clamp(Number(elements.demoTempo.value), 45, 130);
+    demoBpm = clamp(Number(elements.demoTempo.value), 45, 180);
     elements.demoTempoValue.textContent = `${demoBpm} BPM`;
     if (demoPlaying) {
       clearTimeout(demoTimer);

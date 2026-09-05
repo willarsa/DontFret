@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="styles.css">
-<script type="module" src="./index.js?v=1.1"></script>
+<script type="module" src="./index.js?v=2.1"></script>
 <title>Brass Tacks — Trumpet Trainer</title>
 </head>
 <body>
@@ -105,19 +105,8 @@
         <h2 id="songTitle"></h2>
         <p id="songMeta" class="song-meta"></p>
         <p id="songNote" class="song-note"></p>
-        <div class="song-grid">
-          <div class="song-panel">
-            <div class="song-panel-label">Practice melody</div>
-            <div id="songMelody" class="progression"></div>
-          </div>
-          <div class="song-panel">
-            <div class="song-panel-label">Suggested practice pattern</div>
-            <div id="rhythmPattern" class="strum-pattern"></div>
-            <div id="rhythmCount" class="strum-count"></div>
-          </div>
-        </div>
-        <div class="song-actions">
-          <button id="playMelodyBtn" class="primary-btn"><span aria-hidden="true">♪</span> Hear melody</button>
+        
+        <div class="song-actions" style="margin-bottom: 24px;">
           <button id="practiceAgainBtn" class="secondary-btn">Practice pool again</button>
           <button id="choosePoolBtn" class="secondary-btn">Choose another pool</button>
         </div>
@@ -125,35 +114,27 @@
         <div class="song-demo" aria-label="Guided song note demonstration">
           <div class="song-demo-head">
             <div>
-              <h3>Guided note demonstration</h3>
-              <p>Follow the valves, count the pulse, and change when the next note arrives.</p>
+              <h3>Phrase Playback</h3>
+              <p>Listen to the exact rhythm. Note widths indicate duration (e.g. quarter, half notes).</p>
             </div>
             <div class="tempo-control">
               <div class="tempo-top"><span>Practice tempo</span><strong id="demoTempoValue">72 BPM</strong></div>
-              <input id="demoTempo" type="range" min="45" max="130" step="1" value="72" aria-label="Guided demonstration practice tempo" />
+              <input id="demoTempo" type="range" min="45" max="180" step="1" value="72" aria-label="Guided demonstration practice tempo" />
             </div>
           </div>
 
           <div class="demo-stage">
             <div id="demoCurrentDiagram" class="demo-diagram-panel"></div>
             <div class="demo-info-panel">
-              <div id="demoStepLabel" class="demo-kicker">Note 1 of 4</div>
-              <div id="demoNoteName" class="demo-chord-name">C4</div>
-              <div class="demo-next">
-                <div id="demoNextDiagram" class="demo-next-diagram"></div>
-                <div class="demo-next-copy"><span>Coming next</span><strong id="demoNextNote">D4</strong></div>
-              </div>
-              <div class="demo-measure">
-                <div class="demo-measure-top"><span id="demoFeel">4/4 practice pulse</span><span id="demoBeatCount">Beat 1 of 4</span></div>
-                <div id="demoBeats" class="demo-beats"></div>
+              <div id="demoStepLabel" class="demo-kicker">Note 1</div>
+              <div class="demo-timeline-wrap">
+                <div id="demoTimeline" class="demo-timeline"></div>
               </div>
               <div class="demo-controls">
-                <button id="demoPlayBtn" class="primary-btn">▶ Start demo</button>
-                <button id="demoPrevBtn" class="secondary-btn" aria-label="Previous note">← Previous</button>
-                <button id="demoNextBtn" class="secondary-btn">Next →</button>
-                <button id="demoHearBtn" class="secondary-btn"><span aria-hidden="true">♪</span> Hear note</button>
+                <button id="demoPlayBtn" class="primary-btn">▶ Start playback</button>
+                <button id="demoHearBtn" class="secondary-btn"><span aria-hidden="true">♪</span> Check note</button>
               </div>
-              <div id="demoStatus" class="demo-status" aria-live="polite">Ready · the demo stops after one full melody.</div>
+              <div id="demoStatus" class="demo-status" aria-live="polite">Ready.</div>
             </div>
           </div>
         </div>
