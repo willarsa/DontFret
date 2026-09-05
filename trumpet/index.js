@@ -45,6 +45,23 @@
       id: "low-register", level: "Technique pool", name: "The Low Register", notes: ["F#3", "G3", "A3", "Bb3", "B3"],
       description: "Loosen the embouchure to hit the warm lower limits of the horn.",
       song: { title: "Low Brass Jam", artist: "Brass Tacks", version: "practice loop", melody: ["G3", "A3", "Bb3", "G3", "F#3", "G3"], demo: { bpm: 70, feel: "4/4 slow groove", steps: ["♩", "♩", "♩", "♩"] }, pattern: "1 2 3 4", count: "Count: 1 2 3 4", note: "Focus on tone quality and avoid pressing the mouthpiece too hard." }
+    },
+    {
+      id: "fly-me-moon", 
+      level: "Intermediate pool", 
+      name: "Descending Jazz Phrase", 
+      notes: ["E4", "F4", "G4", "A4", "B4", "C5"],
+      description: "Practice your descending scale control using one of the most famous jazz standards.",
+      song: { 
+        title: "Fly Me to the Moon", 
+        artist: "Frank Sinatra", 
+        version: "opening melody", 
+        melody: ["C5", "B4", "A4", "G4", "F4", "A4", "C5", "B4", "A4", "G4", "F4", "E4"], 
+        demo: { bpm: 118, feel: "4/4 medium swing", steps: ["♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩", "♩"] }, 
+        pattern: "1 2 3 4", 
+        count: "Swing count: 1 2 3 4", 
+        note: "Keep the airstream steady as you walk down from C5. Give the notes a slight swing feel rather than playing them rigidly straight." 
+      }
     }
   ];
 
