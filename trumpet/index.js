@@ -92,6 +92,27 @@
         demo: { bpm: 118 }, 
         note: "Keep the airstream steady as you walk down from C5. Give the 0.5-beat notes a slight swing feel to match the classic recording." 
       }
+    },
+    {
+      id: "full-staff", 
+      level: "Advanced pool", 
+      name: "Full Staff Mastery", 
+      notes: ["E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5"],
+      description: "Drill every natural note sitting on or within the five lines of the musical staff.",
+      song: { 
+        title: "Staff Sweeper", 
+        artist: "Brass Tacks", 
+        version: "practice run", 
+        melody: [
+          // Ascending scale walk
+          {n:"E4", d:1}, {n:"F4", d:1}, {n:"G4", d:1}, {n:"A4", d:1}, 
+          {n:"B4", d:1}, {n:"C5", d:1}, {n:"D5", d:1}, {n:"E5", d:2}, 
+          // Descending arpeggio
+          {n:"C5", d:1}, {n:"A4", d:1}, {n:"F4", d:1}, {n:"E4", d:2}
+        ], 
+        demo: { bpm: 100 }, 
+        note: "Focus on your air support as you climb to the top of the staff. Keep your embouchure firm but not pinched for the high D and E." 
+      }
     }
   ];
 
