@@ -4,12 +4,12 @@
   const SETTINGS_KEY = "trumpetRecall.settings.v1";
 
   const noteData = {
-    "F#3": { valves: [1, 1, 1], staffLine: -2.5, midi: 54 },
-    "G3":  { valves: [1, 0, 1], staffLine: -2.0, midi: 55 },
-    "G#3": { valves: [0, 1, 1], staffLine: -2.0, midi: 56, accidental: "#" },
-    "A3":  { valves: [1, 1, 0], staffLine: -1.5, midi: 57 },
+    "F#3": { valves: [1, 1, 1], staffLine: -3.0, midi: 54, accidental: "#" },
+    "G3":  { valves: [1, 0, 1], staffLine: -2.5, midi: 55 },
+    "G#3": { valves: [0, 1, 1], staffLine: -2.5, midi: 56, accidental: "#" },
+    "A3":  { valves: [1, 1, 0], staffLine: -2.0, midi: 57 },
     "Bb3": { valves: [1, 0, 0], staffLine: -1.5, midi: 58, accidental: "b" },
-    "B3":  { valves: [0, 1, 0], staffLine: -1.0, midi: 59 },
+    "B3":  { valves: [0, 1, 0], staffLine: -1.5, midi: 59 },
     "C4":  { valves: [0, 0, 0], staffLine: -1.0, midi: 60 },
     "C#4": { valves: [1, 1, 1], staffLine: -1.0, midi: 61, accidental: "#" },
     "D4":  { valves: [1, 0, 1], staffLine: -0.5, midi: 62 },
@@ -23,8 +23,8 @@
     "Bb4": { valves: [1, 0, 0], staffLine: 1.5, midi: 70, accidental: "b" },
     "B4":  { valves: [0, 1, 0], staffLine: 2.0, midi: 71 },
     "C5":  { valves: [0, 0, 0], staffLine: 2.5, midi: 72 },
-    "D5":  { valves: [1, 0, 0], staffLine: 3.5, midi: 74 },
-    "E5":  { valves: [0, 0, 0], staffLine: 4.5, midi: 76 }
+    "D5":  { valves: [1, 0, 0], staffLine: 3.0, midi: 74 },
+    "E5":  { valves: [0, 0, 0], staffLine: 3.5, midi: 76 }
   };
 
   const pools = [
